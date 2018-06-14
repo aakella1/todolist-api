@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         // GLobal Vars
-        PIPELINES_NAMESPACE = "<YOUR_NAME>-ci-cd"
+        PIPELINES_NAMESPACE = "anand-ci-cd"
         APP_NAME = "todolist-api"
 
         JENKINS_TAG = "${JOB_NAME}.${BUILD_NUMBER}".replace("/", "-")
@@ -15,8 +15,8 @@ pipeline {
 
         GIT_SSL_NO_VERIFY = true
         GIT_CREDENTIALS = credentials('jenkins-git-creds')
-        GITLAB_DOMAIN = "gitlab.apps.lader.rht-labs.com"
-        GITLAB_PROJECT = "<GIT_USERNAME>"
+        GITLAB_DOMAIN = "github.com"
+        GITLAB_PROJECT = "aakella1"
     }
 
     // The options directive is for configuration that applies to the whole job.
@@ -40,7 +40,7 @@ pipeline {
             steps {
                 script {
                     // Arbitrary Groovy Script executions can do in script tags
-                    env.PROJECT_NAMESPACE = "<YOUR_NAME>-test"
+                    env.PROJECT_NAMESPACE = "anand-test"
                     env.NODE_ENV = "test"
                     env.E2E_TEST_ROUTE = "oc get route/${APP_NAME} --template='{{.spec.host}}' -n ${PROJECT_NAMESPACE}".execute().text.minus("'").minus("'")
                 }
@@ -58,7 +58,7 @@ pipeline {
             steps {
                 script {
                     // Arbitrary Groovy Script executions can do in script tags
-                    env.PROJECT_NAMESPACE = "<YOUR_NAME>-dev"
+                    env.PROJECT_NAMESPACE = "anand-dev"
                     env.NODE_ENV = "dev"
                     env.E2E_TEST_ROUTE = "oc get route/${APP_NAME} --template='{{.spec.host}}' -n ${PROJECT_NAMESPACE}".execute().text.minus("'").minus("'")
                 }
@@ -73,7 +73,7 @@ pipeline {
             steps {
                 // git branch: 'develop',
                 //     credentialsId: 'jenkins-git-creds',
-                //     url: 'https://gitlab-<YOUR_NAME>-ci-cd.apps.somedomain.com/<YOUR_NAME>/todolist-api.git'
+                //     url: 'https://gitlab-anand-ci-cd.apps.somedomain.com/anand/todolist-api.git'
                 sh 'printenv'
 
                 echo '### Install deps ###'
